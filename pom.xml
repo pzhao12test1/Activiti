@@ -4,45 +4,16 @@
   <parent>
     <groupId>org.activiti</groupId>
     <artifactId>activiti-parent</artifactId>
-    <version>7-201710-EA</version>
+    <version>7-201709-EA</version>
   </parent>
   <name>Activiti</name>
 
   <description>BPM and workflow engine</description>
   <artifactId>activiti-root</artifactId>
-  <version>7-201710-EA</version>
+  <version>7-201710-EA-SNAPSHOT</version>
   <packaging>pom</packaging>
 
-  <properties>
-    <version.activiti>${project.version}</version.activiti>
-  </properties>
 
-  <distributionManagement>
-    <repository>
-      <id>central-releases-staging</id>
-      <name>Central Releases - Staging</name>
-      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
-    </repository>
-    <snapshotRepository>
-      <id>activiti-enterprise-snapshots</id>
-      <name>Activiti Snapshots</name>
-      <url>https://artifacts.alfresco.com/nexus/content/repositories/activiti-snapshots/</url>
-    </snapshotRepository>
-  </distributionManagement>
-
-  <repositories>
-    <repository>
-      <id>activiti-snapshots</id>
-      <name>Activiti Snapshots</name>
-      <url>https://artifacts.alfresco.com/nexus/content/repositories/activiti-snapshots/</url>
-      <releases>
-        <enabled>false</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-    </repository>
-  </repositories>
 
   <dependencyManagement>
     <!-- Important: Do not add any additional dependency versions here!
@@ -67,9 +38,22 @@
     <module>activiti-json-converter</module>
     <module>activiti-bpmn-converter</module>
     <module>activiti-engine</module>
+    <module>activiti-services</module>
     <module>activiti-spring</module>
   </modules>
 
+  <distributionManagement>
+    <repository>
+      <id>central-releases-staging</id>
+      <name>Central Releases - Staging</name>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+    </repository>
+    <snapshotRepository>
+      <id>activiti-enterprise-snapshots</id>
+      <name>Activiti Snapshots</name>
+      <url>https://artifacts.alfresco.com/nexus/content/repositories/activiti-snapshots/</url>
+    </snapshotRepository>
+  </distributionManagement>
 
   <profiles>
     <!-- Profile to sign artifacts, triggered when releasing -->
@@ -145,6 +129,42 @@
       <organizationUrl>http://alfresco.com</organizationUrl>
     </developer>
   </developers>
+
+  <repositories>
+    <repository>
+      <id>activiti-snapshots</id>
+      <name>Activiti Snapshots</name>
+      <url>https://artifacts.alfresco.com/nexus/content/repositories/activiti-snapshots/</url>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-release-plugin</artifactId>
+          <version>${maven-release-plugin.version}</version>
+          <configuration>
+            <releaseProfiles>sign</releaseProfiles>
+            <autoVersionSubmodules>true</autoVersionSubmodules>
+            <tagNameFormat>activiti-@{project.version}</tagNameFormat>
+            <!-- Necessary until keycloak releases boot2 adaptor -->
+            <allowTimestampedSnapshots>true</allowTimestampedSnapshots>
+            <checkModificationExcludes>
+              <checkModificationExclude>pom.xml</checkModificationExclude>
+            </checkModificationExcludes>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
 
 </project>
 
