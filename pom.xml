@@ -13,9 +13,6 @@
   <version>7-201710-EA-SNAPSHOT</version>
   <packaging>pom</packaging>
 
-  <properties>
-    <version.activiti>7-201710-EA-SNAPSHOT</version.activiti>
-  </properties>
 
   <distributionManagement>
     <repository>
@@ -52,7 +49,7 @@
       <dependency>
         <groupId>org.activiti</groupId>
         <artifactId>activiti-dependencies</artifactId>
-        <version>${version.activiti}</version>
+        <version>7-201710-EA-SNAPSHOT</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
